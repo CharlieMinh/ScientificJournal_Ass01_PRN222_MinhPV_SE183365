@@ -1,0 +1,12 @@
+C:\Users\phamv\Desktop\Ki_7\PRN222\SU26_PRN222_SE1936_ASM01_SE183365_PVMinh\ClassLibrary1\bin\Debug\net8.0\ScientificJournal.Entities.MinhPV.deps.json
+C:\Users\phamv\Desktop\Ki_7\PRN222\SU26_PRN222_SE1936_ASM01_SE183365_PVMinh\ClassLibrary1\bin\Debug\net8.0\ScientificJournal.Entities.MinhPV.dll
+C:\Users\phamv\Desktop\Ki_7\PRN222\SU26_PRN222_SE1936_ASM01_SE183365_PVMinh\ClassLibrary1\bin\Debug\net8.0\ScientificJournal.Entities.MinhPV.pdb
+C:\Users\phamv\Desktop\Ki_7\PRN222\SU26_PRN222_SE1936_ASM01_SE183365_PVMinh\ClassLibrary1\obj\Debug\net8.0\ScientificJournal.Entities.MinhPV.csproj.AssemblyReference.cache
+C:\Users\phamv\Desktop\Ki_7\PRN222\SU26_PRN222_SE1936_ASM01_SE183365_PVMinh\ClassLibrary1\obj\Debug\net8.0\ScientificJournal.Entities.MinhPV.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\phamv\Desktop\Ki_7\PRN222\SU26_PRN222_SE1936_ASM01_SE183365_PVMinh\ClassLibrary1\obj\Debug\net8.0\ScientificJournal.Entities.MinhPV.AssemblyInfoInputs.cache
+C:\Users\phamv\Desktop\Ki_7\PRN222\SU26_PRN222_SE1936_ASM01_SE183365_PVMinh\ClassLibrary1\obj\Debug\net8.0\ScientificJournal.Entities.MinhPV.AssemblyInfo.cs
+C:\Users\phamv\Desktop\Ki_7\PRN222\SU26_PRN222_SE1936_ASM01_SE183365_PVMinh\ClassLibrary1\obj\Debug\net8.0\ScientificJournal.Entities.MinhPV.csproj.CoreCompileInputs.cache
+C:\Users\phamv\Desktop\Ki_7\PRN222\SU26_PRN222_SE1936_ASM01_SE183365_PVMinh\ClassLibrary1\obj\Debug\net8.0\ScientificJournal.Entities.MinhPV.dll
+C:\Users\phamv\Desktop\Ki_7\PRN222\SU26_PRN222_SE1936_ASM01_SE183365_PVMinh\ClassLibrary1\obj\Debug\net8.0\refint\ScientificJournal.Entities.MinhPV.dll
+C:\Users\phamv\Desktop\Ki_7\PRN222\SU26_PRN222_SE1936_ASM01_SE183365_PVMinh\ClassLibrary1\obj\Debug\net8.0\ScientificJournal.Entities.MinhPV.pdb
+C:\Users\phamv\Desktop\Ki_7\PRN222\SU26_PRN222_SE1936_ASM01_SE183365_PVMinh\ClassLibrary1\obj\Debug\net8.0\ref\ScientificJournal.Entities.MinhPV.dll

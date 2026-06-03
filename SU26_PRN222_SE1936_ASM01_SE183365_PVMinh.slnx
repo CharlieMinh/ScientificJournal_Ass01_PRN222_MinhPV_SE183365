@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="ClassLibrary1/ScientificJournal.Entities.MinhPV.csproj" />
+  <Project Path="ClassLibrary2/ScientificJournal.Repositories.MinhPV.csproj" />
+  <Project Path="ClassLibrary3/ScientificJournal.Services.MinhPV.csproj" />
+  <Project Path="WebApplication1/ScientificJournal.WebMVCApp.MinhPV.csproj" />
+</Solution>

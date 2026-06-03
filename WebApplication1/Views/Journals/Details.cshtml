@@ -1,0 +1,81 @@
+@model JournalsMinhPv
+
+@{
+    ViewData["Title"] = "Journal Details";
+}
+
+<h1>Journal Details</h1>
+
+<dl class="row">
+    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.JournalName)</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(model => model.JournalName)</dd>
+    <dt class="col-sm-3">Publisher</dt>
+    <dd class="col-sm-9">@Model.Publisher?.PublisherName</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Issn)</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(model => model.Issn)</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Eissn)</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(model => model.Eissn)</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Country)</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(model => model.Country)</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.ImpactFactor)</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(model => model.ImpactFactor)</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Ranking)</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(model => model.Ranking)</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Description)</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.IsActive)</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(model => model.IsActive)</dd>
+</dl>
+
+<h4>Categories</h4>
+<p>
+    @if (Model.CategoryIdMinhPvs.Any())
+    {
+        foreach (var category in Model.CategoryIdMinhPvs)
+        {
+            <span class="badge bg-primary me-1">@category.CategoryName</span>
+        }
+    }
+    else
+    {
+        <span class="text-muted">No category assigned.</span>
+    }
+</p>
+
+<h4>Papers in this journal</h4>
+<table id="JournalPaperTable" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Publication Year</th>
+            <th>DOI</th>
+            <th>Open Access</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var paper in Model.PapersBaoTgs)
+        {
+            <tr>
+                <td>@paper.Title</td>
+                <td>@paper.PublicationYear</td>
+                <td>@paper.Doi</td>
+                <td>@paper.IsOpenAccess</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    <a asp-action="Edit" asp-route-id="@Model.JournalIdMinhPv">Edit</a> |
+    <a asp-action="AssignCategories" asp-route-id="@Model.JournalIdMinhPv">Assign Categories</a> |
+    <a asp-action="Index">Back to List</a>
+</p>
+
+@section Scripts {
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            $('#JournalPaperTable').DataTable({ paging: true, pageLength: 5, searching: true, ordering: true, info: true });
+        });
+    </script>
+}

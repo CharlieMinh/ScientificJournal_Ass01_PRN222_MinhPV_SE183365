@@ -1,0 +1,55 @@
+@model CategoriesMinhPv
+
+@{
+    ViewData["Title"] = "Category Details";
+}
+
+<h1>Category Details</h1>
+
+<dl class="row">
+    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.CategoryName)</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(model => model.CategoryName)</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Description)</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.CreatedAt)</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(model => model.CreatedAt)</dd>
+</dl>
+
+<h4>Journals in this category</h4>
+<table id="CategoryJournalTable" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Journal Name</th>
+            <th>Publisher</th>
+            <th>ISSN</th>
+            <th>Impact Factor</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var journal in Model.JournalIdMinhPvs)
+        {
+            <tr>
+                <td>@journal.JournalName</td>
+                <td>@journal.Publisher?.PublisherName</td>
+                <td>@journal.Issn</td>
+                <td>@journal.ImpactFactor</td>
+                <td><a asp-controller="Journals" asp-action="Details" asp-route-id="@journal.JournalIdMinhPv">Details</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    <a asp-action="Edit" asp-route-id="@Model.CategoryIdMinhPv">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</p>
+
+@section Scripts {
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            $('#CategoryJournalTable').DataTable({ paging: true, pageLength: 5, searching: true, ordering: true, info: true });
+        });
+    </script>
+}
