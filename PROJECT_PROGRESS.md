@@ -189,3 +189,42 @@ Smoke test:
 /Account/Register -> 200
 Old CSS link present: false
 ```
+
+## 2026-06-03: Normalize GitHub Repository Folder Structure
+
+Status: Completed locally. Remote was updated to the intended GitHub repository.
+
+Purpose:
+- Fix the issue where GitHub displayed folders as `ClassLibrary1`, `ClassLibrary2`, `ClassLibrary3`, and `WebApplication1`.
+- Make the repository folder structure match the actual project names and the class sample style.
+
+Completed:
+- Renamed folders:
+  - `ClassLibrary1` -> `ScientificJournal.Entities.MinhPV`
+  - `ClassLibrary2` -> `ScientificJournal.Repositories.MinhPV`
+  - `ClassLibrary3` -> `ScientificJournal.Services.MinhPV`
+  - `WebApplication1` -> `ScientificJournal.WebMVCApp.MinhPV`
+- Updated project references in:
+  - `ScientificJournal.Repositories.MinhPV.csproj`
+  - `ScientificJournal.Services.MinhPV.csproj`
+  - `ScientificJournal.WebMVCApp.MinhPV.csproj`
+- Updated solution paths in:
+  - `SU26_PRN222_SE1936_ASM01_SE183365_PVMinh.slnx`
+- Renamed old template namespaces from `WebApplication1` to `ScientificJournal.WebMVCApp.MinhPV`.
+- Removed template `Class1.cs` files.
+- Added `.gitignore`.
+- Removed `.vs`, `bin`, `obj`, and `.csproj.user` from Git tracking.
+- Updated Git remote:
+  - `https://github.com/CharlieMinh/ScientificJournal_Ass01_PRN222_MinhPV_SE183365.git`
+
+Verification:
+
+```text
+dotnet build ScientificJournal.WebMVCApp.MinhPV/ScientificJournal.WebMVCApp.MinhPV.csproj --no-restore
+Build succeeded.
+0 Warning(s)
+0 Error(s)
+
+Source check:
+No remaining ClassLibrary/WebApplication1 references in cs/cshtml/csproj/slnx files.
+```
