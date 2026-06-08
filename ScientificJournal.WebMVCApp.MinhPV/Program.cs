@@ -4,11 +4,13 @@ using ScientificJournal.Entities.MinhPV.Models;
 using ScientificJournal.Repositories.MinhPV;
 using ScientificJournal.Services.MinhPV;
 using ScientificJournal.Services.MinhPV.Interfaces;
+using ScientificJournal.WebMVCApp.MinhPV.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSignalR();
 
 builder.Services.AddDbContext<ScientificJournalTrendDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -52,5 +54,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapHub<ScientificJournalHub>("/scientificJournalHub");
 
 app.Run();

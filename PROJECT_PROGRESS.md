@@ -228,3 +228,53 @@ Build succeeded.
 Source check:
 No remaining ClassLibrary/WebApplication1 references in cs/cshtml/csproj/slnx files.
 ```
+
+## 2026-06-08: Compare Khanh Latest Commit And Add Journal SignalR Flow
+
+Status: Completed locally. Not pushed yet.
+
+Purpose:
+- Check the latest class-sample repository update from `lqkhanh295/PRN222_ASM1`.
+- Apply the same classroom-style realtime pattern to MinhPV's main Journal flow without expanding outside the assigned scope.
+
+Reference checked:
+- Repository: `https://github.com/lqkhanh295/PRN222_ASM1`
+- Latest commit: `3188fa5 feat: create with signalR, add commnet`
+- Main idea from the commit:
+  - Add SignalR service registration and hub mapping.
+  - Add a Hub class.
+  - Add `Create via SignalR` and `Delete via Hub` buttons.
+  - Update list page from SignalR events.
+
+Completed:
+- Added `ScientificJournalHub`.
+- Registered SignalR in `Program.cs`.
+- Mapped hub endpoint:
+  - `/scientificJournalHub`
+- Added local SignalR browser client:
+  - `wwwroot/js/signalr/dist/browser/signalr.min.js`
+- Updated Journal Create view:
+  - Normal MVC `Create` button remains.
+  - Added `Create via SignalR` button.
+- Updated Journal Delete view:
+  - Normal MVC `Delete` button remains.
+  - Added `Delete via Hub` button.
+- Updated Journal Index view:
+  - Connected to SignalR hub.
+  - Listens for journal create/delete events.
+  - Updates the DataTables list when a journal is created or deleted via hub.
+
+Verification:
+
+```text
+dotnet build ScientificJournal.WebMVCApp.MinhPV/ScientificJournal.WebMVCApp.MinhPV.csproj --no-restore
+Build succeeded.
+0 Warning(s)
+0 Error(s)
+```
+
+Runtime note:
+- Browser smoke test could not be completed on this machine because Windows Application Control blocked the generated runtime DLL:
+  - `ScientificJournal.Entities.MinhPV.dll`
+  - Error code: `0x800711C7`
+- This happened after `dotnet clean` and rebuild as well, so it is an environment execution policy issue, not a compile error from the SignalR code.

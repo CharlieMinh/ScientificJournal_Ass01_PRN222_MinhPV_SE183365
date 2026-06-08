@@ -22,10 +22,10 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="journalTableBody">
         @foreach (var item in Model)
         {
-            <tr>
+            <tr id="journal-@item.JournalIdMinhPv">
                 <td>@Html.DisplayFor(modelItem => item.JournalName)</td>
                 <td>@item.Publisher?.PublisherName</td>
                 <td>@Html.DisplayFor(modelItem => item.Issn)</td>
@@ -45,9 +45,10 @@
 
 @section Scripts {
     <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/signalr/dist/browser/signalr.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            $('#JournalTable').DataTable({
+            const journalTable = $('#JournalTable').DataTable({
                 paging: true,
                 pageLength: 5,
                 searching: true,
@@ -58,6 +59,47 @@
                     { orderable: false, targets: -1 }
                 ]
             });
+
+            const connection = new signalR.HubConnectionBuilder()
+                .withUrl("/scientificJournalHub")
+                .build();
+
+            connection.start().catch(function (err) {
+                return console.error(err.toString());
+            });
+
+            connection.on("ReceiveJournalCreated", function (journal) {
+                if (document.getElementById(`journal-${journal.journalIdMinhPv}`)) {
+                    return;
+                }
+
+                journalTable.row.add([
+                    htmlEncode(journal.journalName),
+                    htmlEncode(journal.publisherName),
+                    htmlEncode(journal.issn),
+                    htmlEncode(journal.country),
+                    journal.impactFactor ?? "",
+                    journal.isActive,
+                    `<a href="/Journals/Edit/${journal.journalIdMinhPv}">Edit</a> |
+                     <a href="/Journals/Details/${journal.journalIdMinhPv}">Details</a> |
+                     <a href="/Journals/AssignCategories/${journal.journalIdMinhPv}">Assign Categories</a> |
+                     <a href="/Journals/Delete/${journal.journalIdMinhPv}">Delete</a>`
+                ]).draw(false);
+
+                const rowNode = journalTable.row(':last').node();
+                rowNode.id = `journal-${journal.journalIdMinhPv}`;
+            });
+
+            connection.on("ReceiveJournalDeleted", function (journalId) {
+                const row = document.getElementById(`journal-${journalId}`);
+                if (row) {
+                    journalTable.row(row).remove().draw(false);
+                }
+            });
+
+            function htmlEncode(value) {
+                return $('<div/>').text(value ?? '').html();
+            }
         });
     </script>
 }
