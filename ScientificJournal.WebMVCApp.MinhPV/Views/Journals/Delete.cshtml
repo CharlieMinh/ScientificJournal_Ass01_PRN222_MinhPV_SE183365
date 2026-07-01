@@ -20,5 +20,35 @@
 <form asp-action="Delete">
     <input type="hidden" asp-for="JournalIdMinhPv" />
     <button type="submit" class="btn btn-danger">Delete</button>
+    <button type="button" id="btnHubDeleteJournal" class="btn btn-warning">Delete via Hub</button>
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </form>
+
+@section Scripts {
+    <script src="~/js/signalr/dist/browser/signalr.min.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/scientificJournalHub")
+            .build();
+
+        connection.start().catch(function (err) {
+            return console.error(err.toString());
+        });
+
+        connection.on("ReceiveJournalDeleteFailed", function (message) {
+            alert(message);
+        });
+
+        document.getElementById("btnHubDeleteJournal").addEventListener("click", function (event) {
+            connection.invoke("HubDeleteJournal", "@Model.JournalIdMinhPv")
+                .then(function () {
+                    window.location.href = '@Url.Action("Index", "Journals")';
+                })
+                .catch(function (err) {
+                    return console.error(err.toString());
+                });
+
+            event.preventDefault();
+        });
+    </script>
+}

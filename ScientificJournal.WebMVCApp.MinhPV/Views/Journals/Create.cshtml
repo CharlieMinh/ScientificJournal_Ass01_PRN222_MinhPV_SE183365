@@ -64,9 +64,47 @@
         <label asp-for="IsActive" class="form-check-label"></label>
     </div>
     <button type="submit" class="btn btn-primary">Create</button>
+    <button type="button" id="btnHubCreateJournal" class="btn btn-warning">Create via SignalR</button>
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </form>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/signalr/dist/browser/signalr.min.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/scientificJournalHub")
+            .build();
+
+        connection.start().catch(function (err) {
+            return console.error(err.toString());
+        });
+
+        document.getElementById("btnHubCreateJournal").addEventListener("click", function (event) {
+            const publisherValue = document.getElementById("PublisherId").value;
+            const impactFactorValue = document.getElementById("ImpactFactor").value;
+            const journal = {
+                journalName: document.getElementById("JournalName").value,
+                issn: document.getElementById("Issn").value,
+                eissn: document.getElementById("Eissn").value,
+                publisherId: publisherValue ? parseInt(publisherValue) : null,
+                country: document.getElementById("Country").value,
+                websiteUrl: document.getElementById("WebsiteUrl").value,
+                impactFactor: impactFactorValue ? parseFloat(impactFactorValue) : null,
+                ranking: document.getElementById("Ranking").value,
+                description: document.getElementById("Description").value,
+                isActive: document.getElementById("IsActive").checked
+            };
+
+            connection.invoke("HubCreateJournal", JSON.stringify(journal))
+                .then(function () {
+                    window.location.href = '@Url.Action("Index", "Journals")';
+                })
+                .catch(function (err) {
+                    return console.error(err.toString());
+                });
+
+            event.preventDefault();
+        });
+    </script>
 }
